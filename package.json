@@ -5,8 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "mocha",
-    "test-watch": "mocha ./test --watch"
+    "test": "mocha --exit",
+    "test-watch": "mocha --watch"
   },
   "author": "",
   "license": "ISC",
