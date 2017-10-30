@@ -4,7 +4,7 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
-const { app, runServer, closeServer } = require('../server');
+const { app, runServer, closeServer } = require('../src/server');
 
 const should = chai.should();
 
@@ -17,10 +17,10 @@ describe('Enpoints', () => {
 
   it('/', () => {
     return chai.request(app)
-      .get('/')
+      .get('/api/questionnaire')
       .then((res) => {
         res.should.have.status(200);
-        res.body.should.be.an('object');
+        res.body.should.be.an('array');
       });
   });
 });
