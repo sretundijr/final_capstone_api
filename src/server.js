@@ -1,18 +1,26 @@
 const express = require('express');
+const cors = require('cors');
 const morgan = require('morgan');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 
-mongoose.Promise = global.Promise;
+const loginRouter = require('./router/login');
+const questionnaireRouter = require('./router/questionniare');
+
+const { CLIENT_ORIGIN } = require('../config');
+
+// const bodyParser = require('body-parser');
+// const mongoose = require('mongoose');
+
+// mongoose.Promise = global.Promise;
 
 const app = express();
 
 app.use(morgan('common'));
-app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-  res.json({ something: 'hello world' });
-});
+app.use(cors({ origin: CLIENT_ORIGIN }));
+
+app.use('/api/login', loginRouter);
+
+app.use('/api/questionnaire', questionnaireRouter);
 
 let server;
 
@@ -23,7 +31,6 @@ function runServer() {
       console.log(`Your app is listening on port ${port}`);
       resolve(server);
     }).on('error', (error) => {
-      mongoose.disconnect();
       reject(error);
     });
   });
