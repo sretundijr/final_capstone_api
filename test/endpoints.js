@@ -1,30 +1,26 @@
+
+/* global describe it after before */
+
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 
-// Import server.js and use destructuring assignment to create variables for
-// server.app, server.runServer, and server.closeServer
 const { app, runServer, closeServer } = require('../server');
 
-// import chai and declare a variable for should
 const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Enpoints', function () {
-  before(function () {
-    return runServer();
-  });
+describe('Enpoints', () => {
+  before(() => runServer());
 
-  after(function () {
-    return closeServer();
-  });
+  after(() => closeServer());
 
-  it('/', function () {
+  it('/', () => {
     return chai.request(app)
       .get('/')
-      .then(function (res) {
+      .then((res) => {
         res.should.have.status(200);
-        res.should.be.json;
+        res.body.should.be.an('object');
       });
   });
 });
