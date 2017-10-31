@@ -14,8 +14,9 @@ router.get('/', (req, res) => {
   res.json({ hello: 'world' });
 });
 
-router.get('/new-user', (req, res) => {
-  res.json({ newUser: 'hi' });
+router.post('/new-user', (req, res) => {
+  // console.log(req.body);
+  res.status(200).json({ newUser: req.body });
 });
 
 module.exports = router;
