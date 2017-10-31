@@ -33,4 +33,13 @@ describe('Enpoints', () => {
         res.body.should.be.an('object');
       });
   });
+
+  it('should post a new user', () => {
+    return chai.request(app)
+      .post('/api/login/new-user')
+      .then((res) => {
+        res.should.have.status(200);
+        res.should.be.an('object');
+      });
+  });
 });
