@@ -4,6 +4,7 @@ const morgan = require('morgan');
 
 const loginRouter = require('./router/login');
 const questionnaireRouter = require('./router/questionniare');
+const advisorDashRouter = require('./router/advisor-dashboard');
 
 const { CLIENT_ORIGIN } = require('../config');
 
@@ -21,6 +22,8 @@ app.use(cors({ origin: CLIENT_ORIGIN }));
 app.use('/api/login', loginRouter);
 
 app.use('/api/questionnaire', questionnaireRouter);
+
+app.use('/api/advisor-dashboard', advisorDashRouter);
 
 let server;
 
