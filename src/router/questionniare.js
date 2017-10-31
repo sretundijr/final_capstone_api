@@ -16,4 +16,8 @@ router.get('/', (req, res) => {
   res.json(MockQuestionnaire());
 });
 
+router.post('/', jsonParser, (req, res) => {
+  res.status(200).json({ savedinfo: req.body });
+});
+
 module.exports = router;

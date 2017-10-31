@@ -24,4 +24,13 @@ describe('Enpoints', () => {
         res.body.should.be.an('array');
       });
   });
+
+  it('should post to questionnaire', () => {
+    return chai.request(app)
+      .post('/api/questionnaire')
+      .then((res) => {
+        res.should.have.status(200);
+        res.body.should.be.an('object');
+      });
+  });
 });
