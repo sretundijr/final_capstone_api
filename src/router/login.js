@@ -14,6 +14,11 @@ router.get('/', (req, res) => {
   res.json({ hello: 'world' });
 });
 
+router.post('/', (req, res) => {
+  console.log(req.body);
+  res.status(200).json({ user: req.body });
+});
+
 router.post('/new-user', (req, res) => {
   // console.log(req.body);
   res.status(200).json({ newUser: req.body });
