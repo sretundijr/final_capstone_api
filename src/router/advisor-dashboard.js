@@ -6,14 +6,18 @@ const bodyParser = require('body-parser');
 
 const jsonParser = bodyParser.json();
 
+const mockCustomerList = require('./mock-customer-list');
+
 // todo is this right, I havent seen an example that shows this
 router.use(jsonParser);
 
-router.get('/', (req, res) => {
-  res.json({ hello: 'world' });
+// get returned questionnaires
+router.get('/returned', (req, res) => {
+  res.status(200).json(mockCustomerList());
 });
 
-router.post('/', (req, res) => {
+// used to send an email called from send email in client
+router.post('/send-email', (req, res) => {
   console.log(req.body);
   res.status(200).json({ customer: req.body });
 });

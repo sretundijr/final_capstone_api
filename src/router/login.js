@@ -14,6 +14,7 @@ router.get('/', (req, res) => {
   res.json({ hello: 'world' });
 });
 
+// login user
 router.post('/', (req, res) => {
   console.log(req.body);
   res.status(200).json({ user: req.body });

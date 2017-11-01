@@ -51,4 +51,22 @@ describe('Enpoints', () => {
         res.should.be.an('object');
       });
   });
+
+  it('should get a list of customers that completed a questionnaire', () => {
+    return chai.request(app)
+      .get('/api/advisor-dashboard/returned')
+      .then((res) => {
+        res.should.have.status(200);
+        res.should.be.an('object');
+      });
+  });
+
+  it('should make post request to send email', () => {
+    return chai.request(app)
+      .post('/api/advisor-dashboard/send-email')
+      .then((res) => {
+        res.should.have.status(200);
+        res.should.be.an('object');
+      });
+  });
 });
