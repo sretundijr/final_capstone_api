@@ -14,8 +14,23 @@ const filterCustomerResults = (customerList) => {
       appointmentDate: item.appointmentDate,
     };
   });
-  console.log(removeQuestionnaireData);
   return removeQuestionnaireData;
 };
 
-module.exports = { filterCustomerResults };
+const returnCompletedQuestionnaire = (id, customerList) => {
+  const customer = customerList.filter((item) => {
+    if (item.id === id) {
+      return item;
+    }
+    return '';
+  });
+  const currentQuestionnaire = customer[0].returnedAnswers.filter((item) => {
+    if (!item.archived) {
+      return item;
+    }
+    return '';
+  });
+  return currentQuestionnaire;
+};
+
+module.exports = { filterCustomerResults, returnCompletedQuestionnaire };

@@ -2,7 +2,7 @@
 const mockCustomerList = () => {
   return [
     {
-      id: Math.floor(Math.random() * 10000) + 1,
+      id: '1',
       customerName: 'Steve Retundi',
       customerEmail: 'steve@question.com',
       appointmentDate: '11-11-2017',
@@ -18,7 +18,7 @@ const mockCustomerList = () => {
       ],
     },
     {
-      id: Math.floor(Math.random() * 10000) + 1,
+      id: '2',
       customerName: 'Christina',
       customerEmail: 'christina@question.com',
       appointmentDate: '12-14-2017',
@@ -34,7 +34,7 @@ const mockCustomerList = () => {
       ],
     },
     {
-      id: Math.floor(Math.random() * 10000) + 1,
+      id: '3',
       customerName: 'Steve Retundi',
       customerEmail: 'steve@question.com',
       appointmentDate: '11-11-2017',
@@ -50,7 +50,7 @@ const mockCustomerList = () => {
       ],
     },
     {
-      id: Math.floor(Math.random() * 10000) + 1,
+      id: '4',
       customerName: 'Christina',
       customerEmail: 'christina@question.com',
       appointmentDate: '12-14-2017',
@@ -66,7 +66,7 @@ const mockCustomerList = () => {
       ],
     },
     {
-      id: Math.floor(Math.random() * 10000) + 1,
+      id: '5',
       customerName: 'Christina',
       customerEmail: 'christina@question.com',
       appointmentDate: '12-14-2017',

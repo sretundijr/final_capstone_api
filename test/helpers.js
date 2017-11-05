@@ -5,8 +5,9 @@ const chai = require('chai');
 
 const should = chai.should();
 
-const { filterCustomerResults } = require('../src/helpers');
+const { filterCustomerResults, returnCompletedQuestionnaire } = require('../src/helpers');
 
+// mock test data
 const customerList = [
   {
     id: '1',
@@ -51,6 +52,22 @@ describe('test filter customer results function', () => {
         customerName: 'Steve Retundi',
         customerEmail: 'steve@question.com',
         appointmentDate: '11-11-2017',
+      },
+    ];
+    filteredList.should.eql(correctReturnValue);
+  });
+});
+
+describe('test returnCompletedQuestionnaire', () => {
+  it('accepts a list and an id, returns the current questionnaire', () => {
+    const filteredList = returnCompletedQuestionnaire('1', customerList);
+    const correctReturnValue = [
+      {
+        archived: false,
+        'Is there a driveability issue accompaning the check engine light?': 'hello',
+        'How long has the fault light been on?': 'long time',
+        'Did something happen prior to the light coming on?': 'everything',
+        'Did something happen prior to the light co?': 'everything',
       },
     ];
     filteredList.should.eql(correctReturnValue);
