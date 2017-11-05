@@ -61,7 +61,7 @@ const mockCustomerList = () => {
           'Is there a driveability issue accompaning the check engine light?': 'hello',
           'How long has the fault light been on?': 'long time',
           'Did something happen prior to the light coming on?': 'everything',
-          'Did something happen prior to the light co?': 'everything',
+          'Did something happen prior to the light co?': 'number 4 answers',
         },
       ],
     },
@@ -73,11 +73,11 @@ const mockCustomerList = () => {
       completedQuestionnaire: true,
       returnedAnswers: [
         {
-          archived: true,
+          archived: false,
           'Is there a driveability issue accompaning the check engine light?': 'hello',
           'How long has the fault light been on?': 'long time',
           'Did something happen prior to the light coming on?': 'everything',
-          'Did something happen prior to the light co?': 'everything',
+          'Did something happen prior to the light co?': 'number fives answers',
         },
       ],
     },

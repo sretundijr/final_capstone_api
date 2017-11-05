@@ -30,4 +30,10 @@ router.get('/completed-questionnaire/:id', (req, res) => {
   res.status(200).json(returnCompletedQuestionnaire(req.params.id, mockCustomerList()));
 });
 
+// send questionnaire link to technician
+router.post('/send-questionnaire-link', (req, res) => {
+  console.log(req.body);
+  res.status(200).json({ status: 'success' });
+});
+
 module.exports = router;
