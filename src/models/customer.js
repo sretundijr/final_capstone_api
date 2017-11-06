@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 
 const customerSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   customerName: { type: String, required: true },
   customerEmail: { type: String, required: true },
   appointmentDate: { type: Date, required: true },
@@ -20,5 +19,20 @@ const customerSchema = mongoose.Schema({
 
 const Customer = mongoose.model('Customer', customerSchema);
 
-module.exports = { Customer };
+const saveNewCustomer = (customer) => {
+  console.log(customer);
+  return Customer.create({
+    customerName: customer.customerName,
+    customerEmail: customer.customerEmail,
+    appointmentDate: customer.appointmentDate,
+    completedQuestionnaire: false,
+    advisors: [
+      {
+        _id: customer._id,
+      },
+    ],
+  });
+};
+
+module.exports = { Customer, saveNewCustomer };
 
