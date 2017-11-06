@@ -2,7 +2,6 @@
 const mongoose = require('mongoose');
 
 const advisorSchema = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
   advisorName: { type: String, required: true },
   advisorEmail: { type: String, required: true },
   shopName: { type: String, required: true },
@@ -10,4 +9,20 @@ const advisorSchema = mongoose.Schema({
 
 const Advisor = mongoose.model('Advisor', advisorSchema);
 
-module.exports = { Advisor };
+const createNewUser = (advisor) => {
+  return Advisor.create({
+    advisorName: advisor.advisorName,
+    advisorEmail: advisor.advisorEmail,
+    shopName: advisor.shopName,
+  });
+};
+
+const findAdvisor = (id) => {
+  return Advisor.find({
+    _id: id,
+  })
+    .exec();
+};
+
+module.exports = { Advisor, createNewUser, findAdvisor };
+

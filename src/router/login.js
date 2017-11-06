@@ -7,6 +7,8 @@ const bodyParser = require('body-parser');
 
 const jsonParser = bodyParser.json();
 
+const { createNewUser } = require('../models/advisor');
+
 // todo is this right, I havent seen an example that shows this
 router.use(jsonParser);
 
@@ -21,8 +23,15 @@ router.post('/', (req, res) => {
 });
 
 router.post('/new-user', (req, res) => {
-  // console.log(req.body);
-  res.status(200).json({ newUser: req.body });
+  console.log(req.body);
+  createNewUser(req.body)
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: err });
+    });
 });
 
 module.exports = router;

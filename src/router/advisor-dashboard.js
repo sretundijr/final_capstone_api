@@ -8,10 +8,20 @@ const jsonParser = bodyParser.json();
 
 const mockCustomerList = require('../models/mock-customer-list');
 
+const { findAdvisor } = require('../models/advisor');
+
 const { filterCustomerResults, returnCompletedQuestionnaire } = require('../helpers');
 
 // todo is this right, I havent seen an example that shows this
 router.use(jsonParser);
+
+router.get('/user/:id', (req, res) => {
+  console.log(req.params.id);
+  findAdvisor(req.params.id)
+    .then((advisor) => {
+      res.status(200).json(advisor);
+    });
+});
 
 // get a list of customers that have completed a questionnaire
 router.get('/returned', (req, res) => {
