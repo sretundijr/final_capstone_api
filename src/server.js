@@ -6,12 +6,12 @@ const loginRouter = require('./router/login');
 const questionnaireRouter = require('./router/questionniare');
 const advisorDashRouter = require('./router/advisor-dashboard');
 
-const { CLIENT_ORIGIN } = require('../config');
+const { CLIENT_ORIGIN, DATABASE_URL } = require('../config');
 
 // const bodyParser = require('body-parser');
-// const mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-// mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;
 
 const app = express();
 
@@ -27,30 +27,35 @@ app.use('/api/advisor-dashboard', advisorDashRouter);
 
 let server;
 
-function runServer() {
+function runServer(databaseUrl = DATABASE_URL) {
   const port = process.env.PORT || 8080;
   return new Promise((resolve, reject) => {
-    server = app.listen(port, () => {
-      console.log(`Your app is listening on port ${port}`);
-      resolve(server);
-    }).on('error', (error) => {
-      reject(error);
+    mongoose.connect(databaseUrl, { useMongoClient: true }, (err) => {
+      if (err) {
+        return reject(err);
+      }
+      server = app.listen(port, () => {
+        console.log(`Your app is listening on port ${port}`);
+        resolve(server);
+      }).on('error', (error) => {
+        mongoose.disconnect();
+        reject(error);
+      });
     });
   });
 }
 
 function closeServer() {
-  return new Promise((resolve, reject) => {
+  return mongoose.disconnect().then(() => new Promise((resolve, reject) => {
     console.log('Closing server');
     server.close((err) => {
       if (err) {
         reject(err);
-        // so we don't also call `resolve()`
         return;
       }
       resolve();
     });
-  });
+  }));
 }
 
 if (require.main === module) {
