@@ -1,5 +1,5 @@
 
-const MockQuestionnaire = require('./mock-questionniare');
+const MockQuestionnaire = require('../models/mock-questionniare');
 
 const express = require('express');
 
@@ -12,7 +12,7 @@ const jsonParser = bodyParser.json();
 // todo is this right, I havent seen an example that shows this
 router.use(jsonParser);
 
-// sends questionnaire to troubleshooting questionnaire
+// get questions
 router.get('/', (req, res) => {
   res.json(MockQuestionnaire());
 });

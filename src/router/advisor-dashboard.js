@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 
 const jsonParser = bodyParser.json();
 
-const mockCustomerList = require('./mock-customer-list');
+const mockCustomerList = require('../models/mock-customer-list');
 
 const { filterCustomerResults, returnCompletedQuestionnaire } = require('../helpers');
 
