@@ -33,15 +33,15 @@ describe('Enpoints', () => {
         res.body.should.be.an('object');
       });
   });
-
-  it('should post an existing user', () => {
-    return chai.request(app)
-      .post('/api/login')
-      .then((res) => {
-        res.should.have.status(200);
-        res.should.be.an('object');
-      });
-  });
+  // todo modify test after adding auth0 login
+  // it('should post an existing user', () => {
+  //   return chai.request(app)
+  //     .post('/api/login')
+  //     .then((res) => {
+  //       res.should.have.status(200);
+  //       res.should.be.an('object');
+  //     });
+  // });
 
   // it('should post a new user', () => {
   //   return chai.request(app)
