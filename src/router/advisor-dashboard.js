@@ -4,7 +4,7 @@ const router = express.Router();
 
 const bodyParser = require('body-parser');
 
-const CLIENT_ORIGIN = require('../../config');
+const { CLIENT_ORIGIN } = require('../../config');
 
 const mailgun = require('mailgun-js')({
   apiKey: process.env.MAIL_GUN_API_KEY,
