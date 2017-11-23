@@ -1,4 +1,12 @@
 
+const strictUriEncode = require('strict-uri-encode');
+const { CLIENT_ORIGIN } = require('../config');
+
+const mailgun = require('mailgun-js')({
+  apiKey: process.env.MAIL_GUN_API_KEY,
+  domain: process.env.EMAIL_URL,
+});
+
 const findCompletedQuestionnaire = (customerList) => {
   const customerDataOnly = customerList.filter((item) => {
     if (item.completedQuestionnaire) {
@@ -57,4 +65,30 @@ const returnCompletedQuestionnaire = (id, customerList) => {
   return findCurrentAnswers;
 };
 
-module.exports = { filterCustomerResults, returnCompletedQuestionnaire };
+const encodeUri = (emailInfo) => {
+  const url = CLIENT_ORIGIN;
+  const encoded = strictUriEncode(`/troubleshooting-questionnaire?shopName=${emailInfo.shopName}&advisorName=${emailInfo.advisorName}&appointmentDate=${emailInfo.appointmentDate}&customerName=${emailInfo.customerName}`);
+  return `${url}${encoded}`;
+};
+
+const sendEmail = (emailInfo) => {
+  const data = {
+    from: `${emailInfo.advisorEmail}`,
+    to: `${emailInfo.customerEmail}`,
+    subject: `Your upcoming appointment at ${emailInfo.shopName}`,
+    text: `
+    We are looking forward to your appointment on ${emailInfo.appointmentDate}. 
+    To guarantee the best possbile service we ask that you click the link below 
+    and fill out the survey. This survey is a series of questions that allow us 
+    to better address the issues you are expeirencing with your vehicle. The 
+    survey is optional, but it does offer great insight. Thank you 
+    ${emailInfo.customerName}.
+    ${encodeUri(emailInfo)}
+    `,
+  };
+  mailgun.messages().send(data, (error, body) => {
+    console.log(body);
+  });
+};
+
+module.exports = { filterCustomerResults, returnCompletedQuestionnaire, sendEmail };
