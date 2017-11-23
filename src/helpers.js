@@ -81,8 +81,7 @@ const sendEmail = (emailInfo) => {
     To guarantee the best possbile service we ask that you click the link below 
     and fill out the survey. This survey is a series of questions that allow us 
     to better address the issues you are expeirencing with your vehicle. The 
-    survey is optional, but it does offer great insight. Thank you 
-    ${emailInfo.customerName}.
+    survey is optional, but it does offer great insight. Thank you ${emailInfo.customerName}.
     ${encodeUri(emailInfo)}
     `,
   };
