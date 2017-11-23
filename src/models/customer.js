@@ -19,20 +19,29 @@ const customerSchema = mongoose.Schema({
 
 const Customer = mongoose.model('Customer', customerSchema);
 
-const saveNewCustomer = (customer) => {
-  console.log(customer);
-  return Customer.create({
-    customerName: customer.customerName,
-    customerEmail: customer.customerEmail,
-    appointmentDate: customer.appointmentDate,
-    completedQuestionnaire: false,
-    advisors: [
-      {
-        _id: customer._id,
+const saveNewCustomer = (customerObj) => {
+  return Customer.findOneAndUpdate(
+    { customerName: customerObj.customerName },
+    {
+      $set: {
+        customerEmail: customerObj.customerEmail,
+        appointmentDate: customerObj.appointmentDate,
+        completedQuestionnaire: false,
       },
-    ],
-  });
+    },
+    {
+      upsert: true,
+      new: true,
+    },
+  );
 };
 
-module.exports = { Customer, saveNewCustomer };
+const findCustomer = (id) => {
+  return Customer.find({
+    _id: id,
+  })
+    .exec();
+};
+
+module.exports = { Customer, saveNewCustomer, findCustomer };
 
