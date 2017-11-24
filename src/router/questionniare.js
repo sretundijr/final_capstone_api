@@ -1,9 +1,12 @@
 
-const MockQuestionnaire = require('../models/mock-questionniare');
+// const MockQuestionnaire = require('../models/mock-questionniare');
+
+const Questionnaire = require('../mock-questionnaire.json');
 
 const express = require('express');
 
 const router = express.Router();
+
 
 const bodyParser = require('body-parser');
 
@@ -14,7 +17,7 @@ router.use(jsonParser);
 
 // get questions
 router.get('/', (req, res) => {
-  res.json(MockQuestionnaire());
+  res.json(Questionnaire);
 });
 
 // save completed questionnaire
