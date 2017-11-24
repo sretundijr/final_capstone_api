@@ -44,27 +44,25 @@ router.post('/', (req, res) => {
   };
 
   // options to retrieve user meta data
-  const managementApiEndpoint = userId => (token) => {
+  const managementApiEndpoint = (userId, token) => {
     return {
       method: 'GET',
       url: `https://advisor-login.auth0.com/api/v2/users/${userId}`,
       headers:
-      {
-        authorization: `Bearer ${token.access_token}`,
-        'content-type': 'application/json',
-      },
+        {
+          authorization: `Bearer ${token.access_token}`,
+          'content-type': 'application/json',
+        },
       json: true,
     };
   };
 
-  let callManagementApi = '';
   requestPromise(userInfoEndpoint)
     .then((user) => {
-      callManagementApi = managementApiEndpoint(user.sub);
-      return requestPromise(getClientAuthToken);
-    })
-    .then((authToken) => {
-      return requestPromise(callManagementApi(authToken));
+      return requestPromise(getClientAuthToken)
+        .then((authToken) => {
+          return requestPromise(managementApiEndpoint(user.sub, authToken));
+        });
     })
     .then((response) => {
       if (response.logins_count === 1) {
