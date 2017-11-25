@@ -67,7 +67,7 @@ const returnCompletedQuestionnaire = (id, customerList) => {
 
 const encodeUri = (emailInfo) => {
   const url = CLIENT_ORIGIN;
-  const encoded = strictUriEncode(`/troubleshooting-questionnaire?shopName=${emailInfo.shopName}&advisorName=${emailInfo.advisorName}&appointmentDate=${emailInfo.appointmentDate}&customerName=${emailInfo.customerName}`);
+  const encoded = strictUriEncode(`/troubleshooting-questionnaire/?shopName=${emailInfo.shopName}&advisorName=${emailInfo.advisorName}&appointmentDate=${emailInfo.appointmentDate}&customerName=${emailInfo.customerName}`);
   return `${url}${encoded}`;
 };
 
