@@ -36,7 +36,6 @@ router.get('/returned', (req, res) => {
   res.status(200).json(filterCustomerResults(mockCustomerList()));
 });
 
-// todo build questionnaire link that gets sent to client
 // used to send an email to the customer called from send email in client
 router.post('/send-email', (req, res) => {
   saveNewCustomer(req.body.customer)
@@ -63,7 +62,7 @@ router.post('/send-email', (req, res) => {
     });
 });
 
-// get the completed questionnaire for the a particular customer
+// get the completed questionnaire for a particular customer
 router.get('/completed-questionnaire/:id', (req, res) => {
   console.log(req.params.id);
   res.status(200).json(returnCompletedQuestionnaire(req.params.id, mockCustomerList()));
