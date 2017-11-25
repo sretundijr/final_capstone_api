@@ -17,7 +17,7 @@ router.use(jsonParser);
 
 // get questions
 router.get('/', (req, res) => {
-  res.json(Questionnaire);
+  res.status(200).json(Questionnaire);
 });
 
 // save completed questionnaire
