@@ -67,13 +67,17 @@ const returnCompletedQuestionnaire = (id, customerList) => {
 
 const encodeUri = (emailInfo) => {
   const url = CLIENT_ORIGIN;
-  const encoded = strictUriEncode(`/troubleshooting-questionnaire/?shopName=${emailInfo.shopName}&advisorName=${emailInfo.advisorName}&appointmentDate=${emailInfo.appointmentDate}&customerName=${emailInfo.customerName}`);
+  const encoded = strictUriEncode(`/troubleshooting-questionnaire?shopName=${emailInfo.shopName}&advisorName=${emailInfo.advisorName}&appointmentDate=${emailInfo.appointmentDate}&customerName=${emailInfo.customerName}`);
   return `${url}${encoded}`;
+};
+
+const formatAdvisorName = (name) => {
+  return name.replace(/\s/g, '');
 };
 
 const sendEmail = (emailInfo) => {
   const data = {
-    from: `${emailInfo.advisorEmail}`,
+    from: `${formatAdvisorName(emailInfo.advisorName)}@technician-assist.com`,
     to: `${emailInfo.customerEmail}`,
     subject: `Your upcoming appointment at ${emailInfo.shopName}`,
     text: `
