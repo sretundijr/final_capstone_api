@@ -16,7 +16,8 @@ const { saveNewCustomer } = require('../models/customer');
 const {
   filterCustomerResults,
   returnCompletedQuestionnaire,
-  sendEmail,
+  sendCustomerEmail,
+  sendTechnicianEmail,
 } = require('../helpers');
 
 // todo is this right, I havent seen an example that shows this
@@ -51,7 +52,7 @@ router.post('/send-email', (req, res) => {
         advisorName: advisor.advisorName,
         advisorEmail: advisor.advisorEmail,
       };
-      sendEmail(emailDataObj);
+      sendCustomerEmail(emailDataObj);
     })
     .then(() => {
       res.status(200).json({ status: 'succus' });
@@ -70,7 +71,7 @@ router.get('/completed-questionnaire/:id', (req, res) => {
 
 // send questionnaire link to technician
 router.post('/send-questionnaire-link', (req, res) => {
-  console.log(req.body);
+  sendTechnicianEmail(req.body);
   res.status(200).json({ status: 'success' });
 });
 

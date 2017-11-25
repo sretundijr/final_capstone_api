@@ -75,7 +75,7 @@ const formatAdvisorName = (name) => {
   return name.replace(/\s/g, '');
 };
 
-const sendEmail = (emailInfo) => {
+const sendCustomerEmail = (emailInfo) => {
   const data = {
     from: `${formatAdvisorName(emailInfo.advisorName)}@technician-assist.com`,
     to: `${emailInfo.customerEmail}`,
@@ -94,4 +94,24 @@ const sendEmail = (emailInfo) => {
   });
 };
 
-module.exports = { filterCustomerResults, returnCompletedQuestionnaire, sendEmail };
+const sendTechnicianEmail = (emailInfo) => {
+  const data = {
+    from: 'info@technician-assist.com',
+    to: `${emailInfo.technicianEmail}`,
+    subject: `Info reguarding ${emailInfo.customerName} upcoming appointment`,
+    text: `
+    Please click the link below to view the troubleshooting questionnaire
+    ${emailInfo.customerLink}
+    `,
+  };
+  mailgun.messages().send(data, (error, body) => {
+    console.log(body);
+  });
+};
+
+module.exports = {
+  filterCustomerResults,
+  returnCompletedQuestionnaire,
+  sendCustomerEmail,
+  sendTechnicianEmail,
+};
