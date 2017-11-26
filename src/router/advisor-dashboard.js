@@ -38,14 +38,17 @@ router.get('/returned', (req, res) => {
 
 // used to send an email to the customer called from send email in client
 router.post('/send-email', (req, res) => {
+  let customerId = '';
   saveNewCustomer(req.body.customer)
     .then((customer) => {
-      return findAdvisorAndUpdate(req.body.advisorId, customer._id);
+      customerId = customer._id;
+      return findAdvisorAndUpdate(req.body.advisorId, customerId);
     })
     .then((advisor) => {
       const emailDataObj = {
         customerName: req.body.customer.customerName,
         customerEmail: req.body.customer.customerEmail,
+        customerId,
         shopName: advisor.shopName,
         appointmentDate: req.body.customer.appointmentDate,
         advisorName: advisor.advisorName,
