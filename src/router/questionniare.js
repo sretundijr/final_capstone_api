@@ -7,10 +7,11 @@ const express = require('express');
 
 const router = express.Router();
 
-
 const bodyParser = require('body-parser');
 
 const jsonParser = bodyParser.json();
+
+const { saveReturnedQuestionnaire } = require('../models/customer');
 
 // todo is this right, I havent seen an example that shows this
 router.use(jsonParser);
@@ -22,7 +23,11 @@ router.get('/', (req, res) => {
 
 // save completed questionnaire
 router.post('/', jsonParser, (req, res) => {
-  res.status(200).json({ savedinfo: req.body });
+  console.log(req.body);
+  saveReturnedQuestionnaire(req.body)
+    .then(() => {
+      res.status(200).json({ saved: true });
+    });
 });
 
 module.exports = router;

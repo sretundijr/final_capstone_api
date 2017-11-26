@@ -9,7 +9,12 @@ const customerSchema = mongoose.Schema({
   returnedAnswers: [
     {
       archived: { type: Boolean },
-      answers: { type: Object },
+      questions: [
+        { type: String },
+      ],
+      answers: [
+        { type: String },
+      ],
     },
   ],
   advisors: [
@@ -43,5 +48,31 @@ const findCustomer = (id) => {
     .exec();
 };
 
-module.exports = { Customer, saveNewCustomer, findCustomer };
+const saveReturnedQuestionnaire = (customerObj) => {
+  const returnedQuestions = Object.keys(customerObj.customerAnswers);
+  const returnedAnswers = Object.values(customerObj.customerAnswers);
+  return Customer.findOneAndUpdate(
+    { _id: customerObj.customerId },
+    {
+      $addToSet: {
+        returnedAnswers: {
+          archived: false,
+          questions: returnedQuestions,
+          answers: returnedAnswers,
+        },
+      },
+    },
+    {
+      upsert: true,
+      new: true,
+    },
+  );
+};
+
+module.exports = {
+  Customer,
+  saveNewCustomer,
+  findCustomer,
+  saveReturnedQuestionnaire,
+};
 

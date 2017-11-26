@@ -5,9 +5,12 @@ const chai = require('chai');
 
 const should = chai.should();
 
-const { filterCustomerResults, returnCompletedQuestionnaire } = require('../src/helpers');
+const {
+  filterCustomerResults,
+  returnCompletedQuestionnaire,
+} = require('../src/helpers');
 
-// mock test data
+// mock db test data
 const customerList = [
   {
     id: '1',
