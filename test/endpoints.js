@@ -25,14 +25,14 @@ describe('Enpoints', () => {
       });
   });
 
-  it('should post to questionnaire', () => {
-    return chai.request(app)
-      .post('/api/questionnaire')
-      .then((res) => {
-        res.should.have.status(200);
-        res.body.should.be.an('object');
-      });
-  });
+  // it('should post to questionnaire', () => {
+  //   return chai.request(app)
+  //     .post('/api/questionnaire')
+  //     .then((res) => {
+  //       res.should.have.status(200);
+  //       res.body.should.be.an('object');
+  //     });
+  // });
   // todo modify test after adding auth0 login
   // it('should post an existing user', () => {
   //   return chai.request(app)
