@@ -11,7 +11,10 @@ const mockCustomerList = require('../models/mock-customer-list');
 
 const { findAdvisor, findAdvisorAndUpdate } = require('../models/advisor');
 
-const { saveNewCustomer } = require('../models/customer');
+const {
+  saveNewCustomer,
+  returnCustomersWithCompletedQuestionnaire,
+} = require('../models/customer');
 
 const {
   filterCustomerResults,
@@ -31,9 +34,14 @@ router.get('/user/:id', (req, res) => {
     });
 });
 
-// get a list of customers that have completed a questionnaire
-router.get('/returned', (req, res) => {
-  res.status(200).json(filterCustomerResults(mockCustomerList()));
+// get a list of customers that have completed a questionnaire by advisor id
+router.get('/returned/:id', (req, res) => {
+  console.log(req.params.id);
+  returnCustomersWithCompletedQuestionnaire(req.params.id)
+    .then((customers) => {
+      console.log(customers);
+      res.status(200).json(filterCustomerResults(customers));
+    });
 });
 
 // used to send an email to the customer called from send email in client

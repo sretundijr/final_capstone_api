@@ -1,6 +1,8 @@
 
 const mongoose = require('mongoose');
 
+const { Advisor } = require('./advisor');
+
 const customerSchema = mongoose.Schema({
   customerName: { type: String, required: true },
   customerEmail: { type: String, required: true },
@@ -8,6 +10,7 @@ const customerSchema = mongoose.Schema({
   completedQuestionnaire: { type: Boolean },
   returnedAnswers: [
     {
+      selectedIssue: { type: String },
       archived: { type: Boolean },
       questions: [
         { type: String },
@@ -25,7 +28,7 @@ const customerSchema = mongoose.Schema({
 const Customer = mongoose.model('Customer', customerSchema);
 
 const saveNewCustomer = (customerObj) => {
-  return Customer.findOneAndUpdate(
+  Customer.findOneAndUpdate(
     { customerName: customerObj.customerName },
     {
       $set: {
@@ -42,7 +45,7 @@ const saveNewCustomer = (customerObj) => {
 };
 
 const findCustomer = (id) => {
-  return Customer.find({
+  Customer.find({
     _id: id,
   })
     .exec();
@@ -54,8 +57,12 @@ const saveReturnedQuestionnaire = (customerObj) => {
   return Customer.findOneAndUpdate(
     { _id: customerObj.customerId },
     {
+      $set: {
+        completedQuestionnaire: true,
+      },
       $addToSet: {
         returnedAnswers: {
+          selectedIssue: customerObj.selectedIssue,
           archived: false,
           questions: returnedQuestions,
           answers: returnedAnswers,
@@ -69,10 +76,25 @@ const saveReturnedQuestionnaire = (customerObj) => {
   );
 };
 
+const returnCustomersWithCompletedQuestionnaire = (id) => {
+  return Advisor.findOne(
+    { _id: id },
+    {
+      customers: 1,
+      _id: 0,
+    },
+  )
+    .then((customerlist) => {
+      const objIds = customerlist.customers.map(customerId => mongoose.Types.ObjectId(customerId));
+      return Customer.find({ _id: { $in: objIds } });
+    });
+};
+
 module.exports = {
   Customer,
   saveNewCustomer,
   findCustomer,
   saveReturnedQuestionnaire,
+  returnCustomersWithCompletedQuestionnaire,
 };
 
