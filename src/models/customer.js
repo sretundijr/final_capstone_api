@@ -28,7 +28,7 @@ const customerSchema = mongoose.Schema({
 const Customer = mongoose.model('Customer', customerSchema);
 
 const saveNewCustomer = (customerObj) => {
-  Customer.findOneAndUpdate(
+  return Customer.findOneAndUpdate(
     { customerName: customerObj.customerName },
     {
       $set: {
@@ -45,7 +45,7 @@ const saveNewCustomer = (customerObj) => {
 };
 
 const findCustomer = (id) => {
-  Customer.find({
+  return Customer.find({
     _id: id,
   })
     .exec();
