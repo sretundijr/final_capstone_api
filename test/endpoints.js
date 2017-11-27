@@ -70,14 +70,14 @@ describe('Enpoints', () => {
   //     });
   // });
 
-  it('should make a get request to completed questionnaire', () => {
-    return chai.request(app)
-      .get(`/api/advisor-dashboard/completed-questionnaire/${1}`)
-      .then((res) => {
-        res.should.have.status(200);
-        res.should.be.an('object');
-      });
-  });
+  // it('should make a get request to completed questionnaire', () => {
+  //   return chai.request(app)
+  //     .get(`/api/advisor-dashboard/completed-questionnaire/${1}`)
+  //     .then((res) => {
+  //       res.should.have.status(200);
+  //       res.should.be.an('object');
+  //     });
+  // });
 
   it('should make a post request to sendQuestionnaireLink', () => {
     return chai.request(app)

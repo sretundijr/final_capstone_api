@@ -13,12 +13,12 @@ const { findAdvisor, findAdvisorAndUpdate } = require('../models/advisor');
 
 const {
   saveNewCustomer,
-  returnCustomersWithCompletedQuestionnaire,
+  returnCustomersPerAdvisor,
+  getCompletedQuestionnaireByCustomerId,
 } = require('../models/customer');
 
 const {
   filterCustomerResults,
-  returnCompletedQuestionnaire,
   sendCustomerEmail,
   sendTechnicianEmail,
 } = require('../helpers');
@@ -37,7 +37,7 @@ router.get('/user/:id', (req, res) => {
 // get a list of customers that have completed a questionnaire by advisor id
 router.get('/returned/:id', (req, res) => {
   console.log(req.params.id);
-  returnCustomersWithCompletedQuestionnaire(req.params.id)
+  returnCustomersPerAdvisor(req.params.id)
     .then((customers) => {
       console.log(customers);
       res.status(200).json(filterCustomerResults(customers));
@@ -74,9 +74,12 @@ router.post('/send-email', (req, res) => {
 });
 
 // get the completed questionnaire for a particular customer
+// returns only the last questionnaire completed by customer
 router.get('/completed-questionnaire/:id', (req, res) => {
-  console.log(req.params.id);
-  res.status(200).json(returnCompletedQuestionnaire(req.params.id, mockCustomerList()));
+  getCompletedQuestionnaireByCustomerId(req.params.id)
+    .then((questionAndAnswerObj) => {
+      res.status(200).json(questionAndAnswerObj);
+    });
 });
 
 // send questionnaire link to technician

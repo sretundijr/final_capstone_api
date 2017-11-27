@@ -109,9 +109,18 @@ const sendTechnicianEmail = (emailInfo) => {
   });
 };
 
+const findNonArchivedQuestionAndAnswerObjs = (list) => {
+  return list.filter((obj) => {
+    if (!obj.archived) {
+      return obj;
+    }
+  });
+};
+
 module.exports = {
   filterCustomerResults,
   returnCompletedQuestionnaire,
   sendCustomerEmail,
   sendTechnicianEmail,
+  findNonArchivedQuestionAndAnswerObjs,
 };

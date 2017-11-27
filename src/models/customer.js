@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 
 const { Advisor } = require('./advisor');
 
+const { findNonArchivedQuestionAndAnswerObjs } = require('../helpers');
+
 const customerSchema = mongoose.Schema({
   customerName: { type: String, required: true },
   customerEmail: { type: String, required: true },
@@ -76,7 +78,7 @@ const saveReturnedQuestionnaire = (customerObj) => {
   );
 };
 
-const returnCustomersWithCompletedQuestionnaire = (id) => {
+const returnCustomersPerAdvisor = (id) => {
   return Advisor.findOne(
     { _id: id },
     {
@@ -90,11 +92,36 @@ const returnCustomersWithCompletedQuestionnaire = (id) => {
     });
 };
 
+// returns only the most recent questionnaire completed by the customer
+const getCompletedQuestionnaireByCustomerId = (id) => {
+  return Customer.findOne(
+    { _id: id },
+    {
+      returnedAnswers: 1,
+      _id: 0,
+    },
+  )
+    .then((obj) => {
+      return findNonArchivedQuestionAndAnswerObjs(obj.returnedAnswers);
+    })
+    .then((filteredResults) => {
+      const questionsAndAnswers = filteredResults.map((item) => {
+        return {
+          selectedIssue: item.selectedIssue,
+          questions: item.questions,
+          answers: item.answers,
+        };
+      });
+      return questionsAndAnswers[questionsAndAnswers.length - 1];
+    });
+};
+
 module.exports = {
   Customer,
   saveNewCustomer,
   findCustomer,
   saveReturnedQuestionnaire,
-  returnCustomersWithCompletedQuestionnaire,
+  returnCustomersPerAdvisor,
+  getCompletedQuestionnaireByCustomerId,
 };
 
