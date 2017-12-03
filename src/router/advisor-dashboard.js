@@ -25,7 +25,6 @@ const {
 router.use(jsonParser);
 
 router.get('/user/:id', (req, res) => {
-  console.log(req.params.id);
   findAdvisor(req.params.id)
     .then((advisor) => {
       res.status(200).json(advisor);
@@ -34,10 +33,8 @@ router.get('/user/:id', (req, res) => {
 
 // get a list of customers that have completed a questionnaire by advisor id
 router.get('/returned/:id', (req, res) => {
-  console.log(req.params.id);
   returnCustomersPerAdvisor(req.params.id)
     .then((customers) => {
-      console.log(customers);
       res.status(200).json(filterCustomerResults(customers));
     });
 });

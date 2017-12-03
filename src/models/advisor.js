@@ -25,7 +25,6 @@ const returnExistingUser = advisorEmail =>
 
 
 const findAdvisorAndUpdate = (id, customerId) => {
-  console.log(id, customerId);
   return Advisor.findOneAndUpdate(
     {
       _id: id,

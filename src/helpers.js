@@ -30,24 +30,6 @@ const filterCustomerResults = (customerList) => {
   return removeQuestionnaireData;
 };
 
-// removed archived field from answers object
-const removeArchivedField = (obj) => {
-  const answerField = Object.keys(obj).map((key) => {
-    if (key !== 'archived') {
-      return {
-        [key]: obj[key],
-      };
-    }
-    return '';
-  });
-  const removeWhiteSpace = answerField.filter((item) => {
-    if (item !== '') {
-      return item;
-    }
-  });
-  return removeWhiteSpace;
-};
-
 const returnCompletedQuestionnaire = (id, customerList) => {
   const findByCustomerId = findCompletedQuestionnaire(customerList)
     .filter((item) => {
