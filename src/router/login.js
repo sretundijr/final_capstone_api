@@ -14,10 +14,6 @@ const { createNewUser, returnExistingUser } = require('../models/advisor');
 // todo is this right, I havent seen an example that shows this
 router.use(jsonParser);
 
-router.get('/', (req, res) => {
-  res.json({ hello: 'world' });
-});
-
 // login user
 router.post('/', (req, res) => {
   const accessToken = req.body.advisorInfo;
@@ -76,7 +72,6 @@ router.post('/', (req, res) => {
       return returnExistingUser(response.email);
     })
     .then((user) => {
-      console.log(user);
       res.status(200).json(user);
     })
     .catch((err) => {
