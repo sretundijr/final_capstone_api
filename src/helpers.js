@@ -80,7 +80,7 @@ const sendTechnicianEmail = (emailInfo) => {
   const data = {
     from: 'info@technician-assist.com',
     to: `${emailInfo.technicianEmail}`,
-    subject: `Info reguarding ${emailInfo.customerName} upcoming appointment`,
+    subject: `Info regarding ${emailInfo.customerName} upcoming appointment`,
     text: `
     Please click the link below to view the troubleshooting questionnaire
     ${emailInfo.customerLink}
