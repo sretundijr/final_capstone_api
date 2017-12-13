@@ -29,7 +29,7 @@
       },
       {
         "id": "1",
-        "question": "Has another shop attempted to fix the issueor did the issue occur shortly after vehicle service?",
+        "question": "Has another shop attempted to fix the issue or did the issue occur shortly after vehicle service?",
         "multipleChoice": false,
         "answer": [
           ""
